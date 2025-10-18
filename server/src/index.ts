@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import express from "express";
 import http from "http";
 import { Server } from "socket.io";
+import { roomHandler } from "./room";
 
 dotenv.config();
 
@@ -20,9 +21,7 @@ const io = new Server(server, {
 io.on("connection", (socket) => {
   console.log("a user connected");
 
-  socket.on("join-room", () => {
-    console.log("user joned the room");
-  });
+  roomHandler(socket);
 
   socket.on("disconnect", () => {
     console.log("user disconnected");
