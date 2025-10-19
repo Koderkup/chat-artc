@@ -14,29 +14,25 @@ const Room = () => {
   }, [id, context]);
 
   if (!context) {
-    return <div>Загрузка...</div>;
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="text-lg">Загрузка...</div>
+      </div>
+    );
   }
 
   // Если нет stream и нет ошибки - показываем кнопку для запроса доступа
   if (!context.stream && !context.streamError && !context.isStreamLoading) {
     return (
-      <div style={{ padding: "20px", textAlign: "center" }}>
-        <h2>Комната: {id}</h2>
-        <p>
+      <div className="flex flex-col items-center justify-center min-h-screen p-8 text-center">
+        <h2 className="text-2xl font-bold mb-4">Комната: {id}</h2>
+        <p className="text-gray-600 mb-6 max-w-md">
           Для участия в видеоконференции необходимо предоставить доступ к камере
           и микрофону
         </p>
         <button
           onClick={context.requestMediaAccess}
-          style={{
-            padding: "10px 20px",
-            fontSize: "16px",
-            backgroundColor: "#007bff",
-            color: "white",
-            border: "none",
-            borderRadius: "5px",
-            cursor: "pointer",
-          }}
+          className="px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
         >
           Разрешить доступ к камере и микрофону
         </button>
@@ -46,9 +42,11 @@ const Room = () => {
 
   if (context.isStreamLoading) {
     return (
-      <div style={{ padding: "20px", textAlign: "center" }}>
-        <div>Запрос доступа к камере и микрофону...</div>
-        <div>
+      <div className="flex flex-col items-center justify-center min-h-screen p-8 text-center">
+        <div className="text-lg font-medium mb-2">
+          Запрос доступа к камере и микрофону...
+        </div>
+        <div className="text-gray-600">
           Пожалуйста, разрешите доступ когда браузер запросит разрешение
         </div>
       </div>
@@ -57,22 +55,14 @@ const Room = () => {
 
   if (context.streamError) {
     return (
-      <div style={{ padding: "20px", textAlign: "center" }}>
-        <h2>Комната: {id}</h2>
-        <div style={{ color: "red", margin: "10px 0" }}>
+      <div className="flex flex-col items-center justify-center min-h-screen p-8 text-center">
+        <h2 className="text-2xl font-bold mb-4">Комната: {id}</h2>
+        <div className="text-red-600 mb-6 max-w-md">
           Ошибка: {context.streamError}
         </div>
         <button
           onClick={context.requestMediaAccess}
-          style={{
-            padding: "10px 20px",
-            fontSize: "16px",
-            backgroundColor: "#28a745",
-            color: "white",
-            border: "none",
-            borderRadius: "5px",
-            cursor: "pointer",
-          }}
+          className="px-6 py-3 bg-green-600 text-white font-medium rounded-lg hover:bg-green-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
         >
           Попробовать снова
         </button>
@@ -81,9 +71,11 @@ const Room = () => {
   }
 
   return (
-    <div style={{ padding: "20px" }}>
-      <h2>Комната: {id}</h2>
-      <div>{context.stream && <VideoPlayer stream={context.stream} />}</div>
+    <div className="p-6">
+      <h2 className="text-2xl font-bold mb-6">Комната: {id}</h2>
+      <div className="flex justify-center">
+        {context.stream && <VideoPlayer stream={context.stream} />}
+      </div>
     </div>
   );
 };
