@@ -2,11 +2,11 @@ import React, { useContext } from "react";
 import { RoomContext } from "../context/RoomContext";
 
 const Join: React.FC = () => {
-  const ws = useContext(RoomContext);
+  const context = useContext(RoomContext);
 
   const createRoom = () => {
      console.log("Emitting join-room");
-    ws?.emit("create-room");
+    context?.ws?.emit("create-room");
   };
 
   return (
